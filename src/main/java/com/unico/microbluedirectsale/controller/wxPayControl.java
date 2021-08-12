@@ -7,7 +7,7 @@ package com.unico.microbluedirectsale.controller;
  */
 public class wxPayControl {
 
-    //平台下单，发起支付 /order/create 接口
+    //平台下单，发起支付 /order/create  接口
         //生成 平台订单createOrderService() 创建orderNumber
         //拼接 参数（加上支付回调地址），调用 微信统一下单接口 https://api.mch.weixin.qq.com/pay/unifiedorder openid
         //获取 统一下单返回参数--解析参数（预付标识（带签名的支付信息））
