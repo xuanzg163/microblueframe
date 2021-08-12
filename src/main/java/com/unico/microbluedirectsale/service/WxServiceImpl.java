@@ -37,6 +37,7 @@ public class WxServiceImpl implements WxService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         WXPay wxpay = new WXPay(config);
         String xmlBack = "";
         Map<String, String> notifyMap = null;
