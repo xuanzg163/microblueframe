@@ -69,6 +69,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>cn.felord</groupId>
 			<artifactId>payment-spring-boot-starter</artifactId>
