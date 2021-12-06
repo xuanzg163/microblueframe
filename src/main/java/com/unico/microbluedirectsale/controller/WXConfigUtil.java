@@ -18,17 +18,17 @@ import java.io.File;
 
 public class WXConfigUtil implements WXPayConfig {
     private byte[] certData;
-    public static final String APP_ID = "你的appid";
-    public static final String KEY = "你的api key不是appSecret";
-    public static final String MCH_ID = "你的商户id";
+    public static final String APP_ID = "wx415c2b8117b1789c";
+    public static final String KEY = "063D1z100wiadM118P100gOOC11D1z19";
+    public static final String MCH_ID = "10033639";
 
     public WXConfigUtil() throws Exception {
-        String certPath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "/weixin/apiclient_cert.p12";//从微信商户平台下载的安全证书存放的路径
-        File file = new File(certPath);
-        InputStream certStream = new FileInputStream(file);
-        this.certData = new byte[(int) file.length()];
-        certStream.read(this.certData);
-        certStream.close();
+//        String certPath = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "/weixin/apiclient_cert.p12";//从微信商户平台下载的安全证书存放的路径
+//        File file = new File(certPath);
+//        InputStream certStream = new FileInputStream(file);
+//        this.certData = new byte[(int) file.length()];
+//        certStream.read(this.certData);
+//        certStream.close();
     }
 
     @Override

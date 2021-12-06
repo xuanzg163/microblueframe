@@ -24,9 +24,9 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class WxServiceImpl implements WxService {
-    public static final String SPBILL_CREATE_IP = "服务器ip地址";
+    public static final String SPBILL_CREATE_IP = "192.168.1.1";
     public static final String NOTIFY_URL = "回调接口地址";
-    public static final String TRADE_TYPE_APP = "APP";
+    public static final String TRADE_TYPE_APP = "JSAPI";
 
 
     @Override
@@ -82,38 +82,33 @@ public class WxServiceImpl implements WxService {
             Map<String, String> data = new HashMap<>();
             //生成商户订单号，不可重复
             String out_trade_no = UUID.randomUUID().toString();
-            data.put("appid", config.getAppID());
-            data.put("mch_id", config.getMchID());
+            data.put("appid", "wx415c2b8117b1789c");
+            data.put("mch_id", "10033639");
             data.put("nonce_str", WXPayUtil.generateNonceStr());
-            String body = "订单支付";
-            data.put("body", body);
-            data.put("out_trade_no", out_trade_no);
-            data.put("total_fee", "1");
-            //自己的服务器IP地址
+            data.put("body", "腾讯充值中心-QQ会员充值");
+            //订单号
+            data.put("out_trade_no", "123456789s123xx");
+            data.put("total_fee", "10");
             data.put("spbill_create_ip", SPBILL_CREATE_IP);
-            //异步通知地址（请注意必须是外网）
-            data.put("notify_url", NOTIFY_URL);
-            //交易类型
-            data.put("trade_type", TRADE_TYPE_APP);
-            //附加数据，在查询API和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据
-            data.put("attach", "");
-            data.put("sign", WXPayUtil.generateSignature(data, config.getKey(),
+            data.put("notify_url", "https://v7.unicdata.com/wx/order/create/");
+            data.put("trade_type", "JSAPI");
+            data.put("openid","12123asdasda");
+            //完成签名
+            data.put("sign", WXPayUtil.generateSignature(data, "053RKv1w3M8tSW24ax0w3upjVu3RKv1Y",
                     WXPayConstants.SignType.MD5));
-
             //使用官方API请求预付订单,调用统一下单接口
             Map<String, String> response = wxpay.unifiedOrder(data);
 
             //二次签名--商户server调用再次签名，返还签名参数给小程序，小程序调用支付
             if ("SUCCESS".equals(response.get("return_code"))) {//主要返回以下5个参数，给小程序调用支付
                 Map<String, String> param = new HashMap<>();
-                param.put("appid", config.getAppID());
+                param.put("appid", "wx415c2b8117b1789c");
                 param.put("partnerid", response.get("mch_id"));
                 param.put("prepayid", response.get("prepay_id"));
                 param.put("package", "Sign=WXPay");
                 param.put("noncestr", WXPayUtil.generateNonceStr());
                 param.put("timestamp", System.currentTimeMillis() / 1000 + "");
-                param.put("sign", WXPayUtil.generateSignature(param, config.getKey(),
-                        WXPayConstants.SignType.MD5));
+
                 return param;
             }
         } catch (Exception e) {
