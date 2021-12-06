@@ -28,6 +28,8 @@ public class OrderControl {
 
     @Autowired
     private WxService wxService;
+    // 测试推送
+    public static final String ONE ="1";
 
     @ApiOperation("测试支付")
     @PostMapping("/wx")
